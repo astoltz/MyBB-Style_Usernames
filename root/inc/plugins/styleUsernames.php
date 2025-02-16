@@ -79,19 +79,77 @@ class styleUsernames
     public function __construct()
     {
         global $plugins;
-
-        $plugins->hooks["pre_output_page"][10]["styleUsernames_parseUsernames"] = array("function" => create_function('&$arg', 'global $plugins; $plugins->objects[\'styleUsernames\']->parseUsernames($arg);'));
-        $plugins->hooks["global_end"][10]["styleUsernames_getModerators"] = array("function" => create_function('', 'global $plugins; $plugins->objects[\'styleUsernames\']->getModerators();'));
-        $plugins->hooks["build_forumbits_forum"][10]["styleUsernames_buildForumbits"] = array("function" => create_function('&$arg', 'global $plugins; $plugins->objects[\'styleUsernames\']->buildForumbits($arg);'));
-        $plugins->hooks["forumdisplay_announcement"][10]["styleUsernames_forumdisplayAnnouncement"] = array("function" => create_function('', 'global $plugins; $plugins->objects[\'styleUsernames\']->forumdisplayAnnouncement();'));
-        $plugins->hooks["forumdisplay_thread"][10]["styleUsernames_forumdisplayThread"] = array("function" => create_function('', 'global $plugins; $plugins->objects[\'styleUsernames\']->forumdisplayThread();'));
-        $plugins->hooks["search_results_thread"][10]["styleUsernames_searchThread"] = array("function" => create_function('', 'global $plugins; $plugins->objects[\'styleUsernames\']->searchThread();'));
-        $plugins->hooks["search_results_post"][10]["styleUsernames_searchPost"] = array("function" => create_function('', 'global $plugins; $plugins->objects[\'styleUsernames\']->searchPost();'));
-        $plugins->hooks["private_message"][10]["styleUsernames_privateMessage"] = array("function" => create_function('', 'global $plugins; $plugins->objects[\'styleUsernames\']->privateMessage();'));
-        $plugins->hooks["portal_announcement"][10]["styleUsernames_portalAnnouncement"] = array("function" => create_function('', 'global $plugins; $plugins->objects[\'styleUsernames\']->portalAnnouncement();'));
-        $plugins->hooks["pre_output_page"][10]["styleUsernames_pluginThanks"] = array("function" => create_function('&$arg', 'global $plugins; $plugins->objects[\'styleUsernames\']->pluginThanks($arg);'));
+        $plugins->hooks["pre_output_page"][10]["styleUsernames_parseUsernames"] = array("class_method" => array($this, 'parseUsernamesHook'));
+        $plugins->hooks["global_end"][10]["styleUsernames_getModerators"] = array("class_method" => array($this, 'getModeratorsHook'));
+        $plugins->hooks["build_forumbits_forum"][10]["styleUsernames_buildForumbits"] = array("class_method" => array($this, 'buildForumbitsHook'));
+        $plugins->hooks["forumdisplay_announcement"][10]["styleUsernames_forumdisplayAnnouncement"] = array("class_method" => array($this, 'forumdisplayAnnouncementHook'));
+        $plugins->hooks["forumdisplay_thread"][10]["styleUsernames_forumdisplayThread"] = array("class_method" => array($this, 'forumdisplayThreadHook'));
+        $plugins->hooks["search_results_thread"][10]["styleUsernames_searchThread"] = array("class_method" => array($this, 'searchThreadHook'));
+        $plugins->hooks["search_results_post"][10]["styleUsernames_searchPost"] = array("class_method" => array($this, 'searchPostHook'));
+        $plugins->hooks["private_message"][10]["styleUsernames_privateMessage"] = array("class_method" => array($this, 'privateMessageHook'));
+        $plugins->hooks["portal_announcement"][10]["styleUsernames_portalAnnouncement"] = array("class_method" => array($this, 'portalAnnouncementHook'));
+        $plugins->hooks["pre_output_page"][10]["styleUsernames_pluginThanks"] = array("class_method" => array($this, 'pluginThanksHook'));
     }
 
+    public function parseUsernamesHook(&$arg)
+    {
+        global $plugins;
+        $plugins->objects['styleUsernames']->parseUsernames($arg);
+    }
+
+    public function getModeratorsHook()
+    {
+        global $plugins;
+        $plugins->objects['styleUsernames']->getModerators();
+    }
+
+    public function buildForumbitsHook(&$arg)
+    {
+        global $plugins;
+        $plugins->objects['styleUsernames']->buildForumbits($arg);
+    }
+
+    public function forumdisplayAnnouncementHook()
+    {
+        global $plugins;
+        $plugins->objects['styleUsernames']->forumdisplayAnnouncement();
+    }
+
+    public function forumdisplayThreadHook()
+    {
+        global $plugins;
+        $plugins->objects['styleUsernames']->forumdisplayThread();
+    }
+
+    public function searchThreadHook()
+    {
+        global $plugins;
+        $plugins->objects['styleUsernames']->searchThread();
+    }
+
+    public function searchPostHook()
+    {
+        global $plugins;
+        $plugins->objects['styleUsernames']->searchPost();
+    }
+
+    public function privateMessageHook()
+    {
+        global $plugins;
+        $plugins->objects['styleUsernames']->privateMessage();
+    }
+
+    public function portalAnnouncementHook()
+    {
+        global $plugins;
+        $plugins->objects['styleUsernames']->portalAnnouncement();
+    }
+
+    public function pluginThanksHook(&$arg)
+    {
+        global $plugins;
+        $plugins->objects['styleUsernames']->pluginThanks($arg);
+    }
 
     /**
      * Change moderators usernames to Style Usernames code and get their ids.
